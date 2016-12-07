@@ -1,7 +1,8 @@
 path                = require "path"
-projectRoot         = path.resolve(__dirname, '../')
+utils               = require "../build/utils.coffee"
 webpack             = require "webpack"
 HtmlWebpackPlugin   = require "html-webpack-plugin"
+projectRoot         = path.resolve(__dirname, '../')
 
 #require('coffee-loader')
 #require('coffee-loader!./file.coffee')
@@ -10,18 +11,19 @@ HtmlWebpackPlugin   = require "html-webpack-plugin"
 module.exports =
 
     entry:
-        app: ['./build/dev-client', './web_client/main.coffee']
+        main: ['./build/dev-client.coffee', './web_client/main.coffee']
 
     output:
-        path: path.resolve(__dirname, '../dist')
+        path: path.resolve(__dirname, '..', 'dist')
         publicPath: '/'
         filename: '[name].js'
 
     resolve:
-        extensions: ['', '.js', '.coffee', '.less','.jade']
+        extensions: ['', '.vue', '.js', '.coffee']
         fallback: [path.join(__dirname, '../node_modules')]
         alias:
-            'web_client': path.resolve(__dirname, '../web_client')
+            'vue$': 'vue/dist/vue.js'
+#            'web_client': path.resolve(__dirname, '../web_client')
 
     resolveLoader:
         fallback: [path.join(__dirname, '../node_modules')]
@@ -40,6 +42,10 @@ module.exports =
             }
         ]
         loaders: [
+            {
+                test: /\.vue$/
+                loader: 'vue'
+            }
             {
                 test: /\.jade$/
                 loader: 'pug'
@@ -68,7 +74,28 @@ module.exports =
                 include: projectRoot
                 exclude: /node_modules/
             }
+            {
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/
+                loader: 'url'
+                query:
+                    limit: 10000
+                    name: utils.assetsPath('img/[name].[hash:7].[ext]')
+            }
+            {
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/
+                loader: 'url'
+                query:
+                    limit: 10000
+                    name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+            }
         ]
+
+    vue:
+        loaders:
+            js: "coffee"
+            html: "pug"
+            css: "less"
+
 
     plugins: [
         #https://github.com/glenjamin/webpack-hot-middleware#installation--usage
@@ -77,14 +104,15 @@ module.exports =
         new webpack.NoErrorsPlugin()
         #https://github.com/ampedandwired/html-webpack-plugin
         new HtmlWebpackPlugin({
+            title: "covue"
             filename: 'index.html'
             template: './web_client/index.jade'
-            inject: true
+            inject: 'body'
 #            favicon: "app/favicon.ico"
-            cache: false
+#            cache: false
             minify: {
-              removeComments: true
-              collapseWhitspace: true
+                removeComments: true
+                collapseWhitspace: true
             }
         })
     ]
