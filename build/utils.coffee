@@ -1,10 +1,10 @@
 path = require('path')
-config = require('../config/dev.config.coffee')
+config = require('../config/index.coffee')
 ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 exports.assetsPath = (_path) ->
 #    assetsSubDirectory = if process.env.NODE_ENV == 'production' then config.build.assetsSubDirectory else config.dev.assetsSubDirectory
-    assetsSubDirectory = config.publicPath
+    assetsSubDirectory = config.dev.subDirectory
     path.posix.join assetsSubDirectory, _path
 
 exports.cssLoaders = (options) ->

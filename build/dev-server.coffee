@@ -1,11 +1,14 @@
-config                  = require "../config/dev.config.coffee"
-webpackConfig           = require "../config/webpack.config.coffee"
+process.env.NODE_ENV    = "development"
+
+config                  = require "../config/index.coffee"
+webpackConfig           = require "../config/webpack.dev.config.coffee"
 webpack                 = require "webpack"
 express                 = require "express"
 opn                     = require "opn"
 path                    = require "path"
 webpackDevMiddleware    = require "webpack-dev-middleware"
 webpackHotMiddleware    = require "webpack-hot-middleware"
+
 
 app = express()
 compiler = webpack webpackConfig
@@ -24,11 +27,11 @@ compiler.plugin 'compilation', (compilation, options)->
 app.use devMiddleware
 app.use hotMiddleware
 
-app.use express.static(path.resolve(__dirname, "..", config.publicPath))
+app.use express.static(path.resolve(__dirname, "..", config.dev.subDirectory))
 #app.use "/", (req, res, next)->
 #    res.send "Welcome to coffee-vue"
 
-port = config.port
+port = config.dev.port
 module.exports = app.listen port, (err)->
     if err?
         return console.log err

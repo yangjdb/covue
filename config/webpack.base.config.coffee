@@ -1,22 +1,9 @@
-path                = require "path"
 utils               = require "../build/utils.coffee"
+path                = require "path"
 webpack             = require "webpack"
-HtmlWebpackPlugin   = require "html-webpack-plugin"
 projectRoot         = path.resolve(__dirname, '../')
 
-#require('coffee-loader')
-#require('coffee-loader!./file.coffee')
-#require('coffee-loader?literate!./file.litcoffee')
-
 module.exports =
-
-    entry:
-        main: ['./build/dev-client.coffee', './web_client/main.coffee']
-
-    output:
-        path: path.resolve(__dirname, '..', 'dist')
-        publicPath: '/'
-        filename: '[name].js'
 
     resolve:
         extensions: ['', '.vue', '.js', '.coffee']
@@ -89,30 +76,3 @@ module.exports =
                     name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
             }
         ]
-
-    vue:
-        loaders:
-            js: "coffee"
-            html: "pug"
-            css: "less"
-
-
-    plugins: [
-        #https://github.com/glenjamin/webpack-hot-middleware#installation--usage
-        new webpack.optimize.OccurenceOrderPlugin()
-        new webpack.HotModuleReplacementPlugin()
-        new webpack.NoErrorsPlugin()
-        #https://github.com/ampedandwired/html-webpack-plugin
-        new HtmlWebpackPlugin({
-            title: "covue"
-            filename: 'index.html'
-            template: './web_client/index.jade'
-            inject: 'body'
-#            favicon: "app/favicon.ico"
-#            cache: false
-            minify: {
-                removeComments: true
-                collapseWhitspace: true
-            }
-        })
-    ]
