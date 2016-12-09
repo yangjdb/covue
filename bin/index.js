@@ -19,7 +19,7 @@ require("shelljs/global");
 
 var template = program.args[0];
 
-var directs = ["build", "config", "web_client", "web_server", ".gitignore", "package.json"];
+var directs = ["build", "config", "web_client", "web_server", "package.json"];
 var assetsPath = path.resolve(process.cwd(), template);
 rm('-rf', assetsPath);
 mkdir('-p', assetsPath);
