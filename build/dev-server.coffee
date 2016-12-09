@@ -37,4 +37,4 @@ module.exports = app.listen port, (err)->
         return console.log err
     url = "http://localhost:#{port}"
     console.log "coffee webpack listening at #{port}"
-#    opn url
+    opn url
