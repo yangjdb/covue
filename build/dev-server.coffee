@@ -28,8 +28,6 @@ app.use devMiddleware
 app.use hotMiddleware
 
 app.use express.static(path.resolve(__dirname, "..", config.dev.subDirectory))
-#app.use "/", (req, res, next)->
-#    res.send "Welcome to coffee-vue"
 
 port = config.dev.port
 module.exports = app.listen port, (err)->
@@ -37,4 +35,4 @@ module.exports = app.listen port, (err)->
         return console.log err
     url = "http://localhost:#{port}"
     console.log "coffee webpack listening at #{port}"
-    opn url
+#    opn url
