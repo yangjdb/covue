@@ -5,15 +5,14 @@ div
 </template>
 
 <script lang="coffee">
-{mapActions} = require "vuex"
 module.exports =
 
-    methods: mapActions({
+    methods: {
         login: (state)->
             #登录模块
-            state.a.username = "admin"
+            @$store.dispatch "userLogin"
 
-    })
+    }
 
 
 

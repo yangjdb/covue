@@ -1,10 +1,11 @@
-types = require "../mutation-types.coffee"
+TYPES = require "../mutation-types.coffee"
 
 mutations = {}
-mutations[types.USER] = (state)->
-    state.count++
-mutations[types.STATUS] = (state)->
+mutations[TYPES.USER.LOGIN] = (state)->
+    state.a.username = "admin"
+mutations[TYPES.STATUS] = (state)->
     state.status = "check"
+
 
 
 module.exports =
@@ -18,8 +19,11 @@ module.exports =
             return state.status
     actions:
         increment: ({state, rootState, commit, dispatch, getters})->
-            commit types.USER
+            commit TYPES.STATUS
             
         helloIncrement: ({state, rootState, commit, dispatch, getters})->
-            commit types.STATUS
+            commit TYPES.STATUS
+
+        userLogin: (context)->
+            context.commit TYPES.USER.LOGIN
             

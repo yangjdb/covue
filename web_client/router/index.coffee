@@ -3,9 +3,13 @@ VueRouter = require "vue-router"
 
 Vue.use VueRouter
 
+#vue
 hello = require "../components/hello.vue"
 login = require "../components/login.vue"
 notFound = require "../components/404.vue"
+
+#store
+store = require "../store"
 
 routes = [
     {
@@ -15,7 +19,7 @@ routes = [
             a: hello
         }
         meta: {
-            customInfo: "meta_foo"
+            customInfo: "checkLoginStatus"
         }
         children: [
             {
@@ -24,7 +28,7 @@ routes = [
                     template: "<p>child</p>"
                 }
                 meta: {
-                    customInfo: "meta_foo/child"
+                    customInfo: "checkLoginStatus"
                 }
             }
 
@@ -76,17 +80,20 @@ router = new VueRouter({
 })
 
 router.beforeEach (to, from, next)=>
-    isAuth = to.matched.some (record)->
-        if record.meta.customInfo is "meta_foo"
-            return true
-        return false
-    if isAuth
-        next({
-            path: "/login"
-            query: {
-                redirect: to.fullPath
-            }
-        })
+    if not store.state.a.username?
+        isAuth = to.matched.some (record)->
+            if record.meta.customInfo is "checkLoginStatus"
+                return true
+            return false
+        if isAuth
+            next({
+                path: "/login"
+                query: {
+                    redirect: to.fullPath
+                }
+            })
+        else
+            next()
     else
         next()
 
