@@ -7,12 +7,20 @@ div
 <script lang="coffee">
 module.exports =
 
-    methods: {
-        login: (state)->
+    methods:
+        login: (event)->
             #登录模块
-            @$store.dispatch "userLogin"
+            @$store.dispatch {
+                type: "userLogin"
+                success: =>
+                    #此处应该用回调
+                    @$router.push {
+                        path: "/foo/child"
+                    }
+                error: =>
+            }
 
-    }
+
 
 
 

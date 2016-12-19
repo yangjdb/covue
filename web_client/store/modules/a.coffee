@@ -2,7 +2,7 @@ TYPES = require "../mutation-types.coffee"
 
 mutations = {}
 mutations[TYPES.USER.LOGIN] = (state)->
-    state.a.username = "admin"
+    state.username = "admin"
 mutations[TYPES.STATUS] = (state)->
     state.status = "check"
 
@@ -24,6 +24,7 @@ module.exports =
         helloIncrement: ({state, rootState, commit, dispatch, getters})->
             commit TYPES.STATUS
 
-        userLogin: (context)->
+        userLogin: (context, cb)->
             context.commit TYPES.USER.LOGIN
+            cb.success()
             

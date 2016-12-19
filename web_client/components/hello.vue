@@ -2,6 +2,7 @@
 div
     h1 {{msg}}
     p 测试父组件state：{{helloCount}}
+    p 用户名：{{username}}
     button(v-on:click="increment") change
     router-view
 </template>
@@ -16,6 +17,8 @@ module.exports =
     computed: mapState({
         helloCount: (state)->
             return state.a.status
+        username: (state)->
+            return state.a.username
     })
 
     methods:

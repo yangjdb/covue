@@ -38,6 +38,8 @@ module.exports =
 #        hello
 #    }
 
+    created: ->
+
     computed:
         count: ->
             return @$store.state.a.count

@@ -25,13 +25,18 @@ routes = [
             {
                 path: "child"
                 component: {
-                    template: "<p>child</p>"
+                    template: "
+                        <div>
+                            <p>---------------1-1----------------</p>
+                            <p>child</p>
+                        </div>
+
+                    "
                 }
                 meta: {
                     customInfo: "checkLoginStatus"
                 }
             }
-
         ]
     }
     {
