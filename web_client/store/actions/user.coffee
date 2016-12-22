@@ -1,3 +1,5 @@
 module.exports =
-    login: ()->
+    login: (params, callback)->
+        #userLogin
+        callback null, {status: "success"}
         

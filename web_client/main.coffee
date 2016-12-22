@@ -3,6 +3,10 @@ store  = require "./store"
 router = require "./router"
 app    = require "./components/app.vue"
 
+#chrome插件
+Vue.config.devtools = true
+
+
 vue = new Vue({
     el: "#app"
     store: store

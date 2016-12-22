@@ -4,12 +4,9 @@ VueRouter = require "vue-router"
 Vue.use VueRouter
 
 #vue
-hello = require "../components/hello.vue"
-login = require "../components/login.vue"
+hello    = require "../components/hello.vue"
+login    = require "../components/login.vue"
 notFound = require "../components/404.vue"
-
-#store
-store = require "../store"
 
 routes = [
     {
@@ -29,9 +26,13 @@ routes = [
                         <div>
                             <p>---------------1-1----------------</p>
                             <p>child</p>
+                            <p>{{username}}</p>
                         </div>
 
                     "
+                    computed:
+                        username: ->
+                            return @$store.state.username
                 }
                 meta: {
                     customInfo: "checkLoginStatus"
@@ -49,18 +50,6 @@ routes = [
         }
         meta: {
             customInfo: "meta_component"
-        }
-    }
-    {
-        name: "home"
-        path: "/home"
-        components: {
-            a: {
-                template: "<p>home</p>"
-            }
-        }
-        meta: {
-            customInfo: "meta_home"
         }
     }
     {
@@ -85,7 +74,7 @@ router = new VueRouter({
 })
 
 router.beforeEach (to, from, next)=>
-    if not store.state.a.username?
+    if not localStorage.username?
         isAuth = to.matched.some (record)->
             if record.meta.customInfo is "checkLoginStatus"
                 return true
@@ -102,6 +91,6 @@ router.beforeEach (to, from, next)=>
     else
         next()
 
-router.push "home"
+#router.push "home"
 
 module.exports = router

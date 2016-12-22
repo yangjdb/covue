@@ -1,4 +1,6 @@
 module.exports =
     USER:
         LOGIN: "userLogin"
-    STATUS: "status"
+    OTHER:
+        COUNT: "count"
+        STATUS: "status"

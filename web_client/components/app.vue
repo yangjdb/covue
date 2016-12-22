@@ -12,6 +12,8 @@ div
     router-link(to="/foo/child") 子页面1-1
     &nbsp;
     router-link(to="/component") 子页面2
+    &nbsp;
+    <!--router-link(to="/swip") 翻页-->
 
     p ----------------1-----------------
     transition
@@ -22,6 +24,7 @@ div
 
     p ----------------3-----------------
     router-view(name="c")
+
 
 
 </template>
@@ -39,6 +42,8 @@ module.exports =
 #    }
 
     created: ->
+        if localStorage.username?
+            @$store.state.username = localStorage.username
 
     computed:
         count: ->
@@ -49,6 +54,10 @@ module.exports =
             @$store.dispatch('increment')
 
     watch: {
+
+        "count": ->
+            console.log "count"
+
         "$route": (to, from)->
             toDepth = to.path.split('/').length
             fromDepth = from.path.split('/').length
